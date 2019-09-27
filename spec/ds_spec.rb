@@ -42,8 +42,8 @@ end
 
 it 'you can change the default capacity' do
   docking_station = DockingStation.new(15)
-  15.times {docking_station.dock Bike.new}
-  expect(docking_station.list_of_bikes().count).to eq(15)
+  20.times {docking_station.dock Bike.new}
+  expect(docking_station.list_of_bikes().count).to eq(16)
 end
 
 

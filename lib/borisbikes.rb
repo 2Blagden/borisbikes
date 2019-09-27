@@ -5,7 +5,7 @@ class DockingStation
   DEFAULT_CAPACITY = 20
  # todo make docking station private
   def initialize(capacity = DEFAULT_CAPACITY)
-    capacity2 = capacity
+    @capacity2 = capacity
     @bikes = []
 
     # @bikes << Bike.new
@@ -32,7 +32,7 @@ class DockingStation
     # else
     #   fail 'Docking station full' if bikes.count >= 20
     # end
-    if :full?
+    if :full? 
       bikes << bike
     else
       fail
