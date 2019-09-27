@@ -5,6 +5,7 @@ class DockingStation
   DEFAULT_CAPACITY = 20
  # todo make docking station private
   def initialize(capacity = DEFAULT_CAPACITY)
+    capacity2 = capacity
     @bikes = []
 
     # @bikes << Bike.new
@@ -49,7 +50,7 @@ class DockingStation
   end
 
   def full?
-    if bikes.count <= DEFAULT_CAPACITY
+    if bikes.count <= capacity2
       return false
     else
       return true

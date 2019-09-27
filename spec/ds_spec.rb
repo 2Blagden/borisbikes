@@ -40,6 +40,11 @@ it 'check if you can put 20 boris bikes in one station' do
   20.times {docking_station.dock Bike.new}
 end
 
+it 'you can change the default capacity' do
+  docking_station = DockingStation.new(15)
+  15.times {docking_station.dock Bike.new}
+  expect(docking_station.list_of_bikes().count).to eq(15)
+end
 
 
 end
