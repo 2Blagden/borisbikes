@@ -5,7 +5,7 @@ class DockingStation
   DEFAULT_CAPACITY = 20
  # todo make docking station private
   def initialize(capacity = DEFAULT_CAPACITY)
-    @capacity2 = capacity
+    @capacity = capacity
     @bikes = []
 
     # @bikes << Bike.new
@@ -18,7 +18,7 @@ class DockingStation
     # else
     #   fail
     # end
-    if :empty? == false
+    if :empty? == false && broken == false
       fail
     else
       bikes.slice(0)
@@ -32,10 +32,10 @@ class DockingStation
     # else
     #   fail 'Docking station full' if bikes.count >= 20
     # end
-    if :full? 
-      bikes << bike
+    if full?
+      raise 'no space'
     else
-      fail
+      bikes << bike
     end
 
   end
@@ -50,11 +50,7 @@ class DockingStation
   end
 
   def full?
-    if bikes.count <= capacity2
-      return false
-    else
-      return true
-    end
+    bikes.count >= @capacity
   end
 
 
@@ -62,23 +58,39 @@ class DockingStation
     bikes
   end
 
-
-
+  def reportbroken()
+    if broken == true
+      bike.broken()
+    end
+  end
 end
 
 class Bike
+  attr_reader :broken
   def initialize
+    @broken = false
   end
 
   def working?
     return true
   end
+
+  def broken
+    @broken = true
+  end
+
 end
 
-# docking_station = DockingStation.new
-# bike = docking_station.release_bike
-# docking_station.release_bike
-# # p docking_station.list_of_bikes
+docking_station = DockingStation.new(25)
+25.times {docking_station.dock(Bike.new)}
+p docking_station.list_of_bikes
+
+ # docking_station = DockingStation.new
+ # bike = 420
+ # docking_station.dock(bike)
+ # bike2 = 421
+ # docking_station.dock(bike2)
+ # p docking_station.list_of_bikes
 # # p bike
 # # docking_station.add_bike(bike)
 # # p docking_station.list_of_bikes
