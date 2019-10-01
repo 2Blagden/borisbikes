@@ -11,6 +11,9 @@ class DockingStation
     # @bikes << Bike.new
   end
 
+
+
+
   def release_bike
     # if bikes.count > 0
     #   bikes.slice(0)
@@ -18,12 +21,16 @@ class DockingStation
     # else
     #   fail
     # end
-    if :empty? == false && broken == false
-      fail
+
+    if empty?
+      raise 'fail'
+    elsif notallbikesbroken() == false
+      raise "its working"
     else
       bikes.slice(0)
       bikes.delete_at(0)
     end
+
   end
 
   def dock(bike)
@@ -33,11 +40,14 @@ class DockingStation
     #   fail 'Docking station full' if bikes.count >= 20
     # end
     if full?
-      raise 'no space'
+      raise "it's full"
     else
       bikes << bike
     end
-
+    # broken = true
+    # if broken == true
+    #   bike.reportbroken()
+    # end
   end
 
 
@@ -59,10 +69,13 @@ class DockingStation
   end
 
   def reportbroken()
-    if broken == true
-      bike.broken()
-    end
+    bike.broke()
   end
+
+  def notallbikesbroken()
+
+  end
+
 end
 
 class Bike
@@ -72,25 +85,24 @@ class Bike
   end
 
   def working?
-    return true
+    if @broken == true
+      return false
+    else
+      return true
+    end
   end
 
-  def broken
+  def broke
     @broken = true
   end
 
 end
 
-docking_station = DockingStation.new(25)
-25.times {docking_station.dock(Bike.new)}
-p docking_station.list_of_bikes
-
- # docking_station = DockingStation.new
- # bike = 420
- # docking_station.dock(bike)
- # bike2 = 421
- # docking_station.dock(bike2)
- # p docking_station.list_of_bikes
-# # p bike
-# # docking_station.add_bike(bike)
-# # p docking_station.list_of_bikes
+# docking_station = DockingStation.new(1)
+# bike = Bike.new
+# docking_station.dock(bike)
+# bike.broke
+# p docking_station.list_of_bikes
+# bike2 = Bike.new
+# docking_station.dock(bike)
+# p docking_station.list_of_bikes

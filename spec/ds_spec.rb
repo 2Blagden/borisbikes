@@ -31,13 +31,14 @@ end
 it 'doe not release bikes when none are available' do
   docking_station = DockingStation.new
   bike = Bike.new
-  docking_station.dock(Bike.new)
-  expect { raise docking_station.add_bike(bike)}.to raise_error
+  20.times{ docking_station.dock(Bike.new)}
+  expect { docking_station.dock(bike)}.to raise_error "it's full"
 end
 
 it 'check if you can put 20 boris bikes in one station' do
   docking_station = DockingStation.new
   20.times {docking_station.dock(Bike.new)}
+  expect(docking_station.list_of_bikes().count).to eq(20)
 end
 
 
@@ -45,6 +46,21 @@ it 'you can change the default capacity' do
   docking_station = DockingStation.new(15)
   15.times {docking_station.dock(Bike.new)}
   expect(docking_station.list_of_bikes().count).to eq(15)
+end
+
+it 'you can report a bike' do
+  docking_station = DockingStation.new
+  bike = Bike.new
+  docking_station.dock(bike)
+  expect(bike.broke).to eq(true)
+end
+
+it 'you cant release a broken bike' do
+  docking_station = DockingStation.new
+  bike = Bike.new
+  docking_station.dock(bike)
+  bike.broke
+  expect{ docking_station.release_bike}.to raise_error("jim")
 end
 
 
